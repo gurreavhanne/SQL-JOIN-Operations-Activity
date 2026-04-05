@@ -89,3 +89,43 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+
+--Part A – Basic Join
+--1.Display the patient name and doctor name for all appointments.
+SELECT p.patient_name, a.doctor_name
+FROM Patients p
+INNER JOIN Appointments a
+ON p.patient_id = a.patient_id;
+
+--Part B – Filtering with Join
+--2..Display all patients from Cebu and their appointments.
+SELECT p.patient_name, p.city, a.doctor_name, a.appointment_date
+FROM Patients p
+INNER JOIN Appointments a
+ON p.patient_id = a.patient_id
+WHERE p.city = 'Cebu';
+
+--3.Display appointments handled by Dr. Garcia with the patient names.
+
+SELECT p.patient_name, a.doctor_name, a.appointment_date, a.status
+FROM Patients p
+INNER JOIN Appointments a
+ON p.patient_id = a.patient_id
+WHERE a.doctor_name = 'Dr. Garcia';
+
+--Part C – Analytical Queries
+--4.Show all patients and their appointments, including patients who do not have appointments.
+
+SELECT p.patient_name, a.doctor_name, a.appointment_date, a.status
+FROM Patients p
+LEFT JOIN Appointments a
+ON p.patient_id = a.patient_id;
+
+--5.Show all appointments even if the patient information does not exist in the Patients table.
+
+SELECT p.patient_name, a.doctor_name, a.appointment_date, a.status
+FROM Patients p
+RIGHT JOIN Appointments a
+ON p.patient_id = a.patient_id;
